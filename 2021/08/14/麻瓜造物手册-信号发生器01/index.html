@@ -79,16 +79,18 @@
 
 
 
-<meta name="description" content="系列文章为科协授课而作，原名《鼎山造物指南》  &amp;emsp;&amp;emsp;信号发生器，或者说，函数信号发生器，在电子爱好者的测试测量工作中算是熟面孔了，但是，不像万用表或者电桥，信号发生器，似乎没有什么低成本的DIY方案，对囊中羞涩者而言，专门购入一台，无疑是探索之路上的一大阻碍。 &amp;emsp;&amp;emsp;所以，就让我们试着解析其构造，从零开始创造一台属于自己的信号发生器吧！ 最简单的DAC&amp;em">
+<meta name="description" content="系列文章为科协授课而作，原名《鼎山造物指南》  &amp;emsp;&amp;emsp;信号发生器，或者说，函数信号发生器，在电子爱好者的测试测量工作中算是熟面孔了，但是，不像万用表或者电桥，信号发生器，似乎没有什么低成本的DIY方案，对囊中羞涩者而言，专门购入一台，无疑是探索之路上的一大阻碍。 &amp;emsp;&amp;emsp;所以，就让我们试着解析其构造，从零开始创造一台属于自己的信号发生器吧！ 总体架构&amp;emsp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="麻瓜造物手册-信号发生器01">
 <meta property="og:url" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/index.html">
 <meta property="og:site_name" content="magua8086的小窝">
-<meta property="og:description" content="系列文章为科协授课而作，原名《鼎山造物指南》  &amp;emsp;&amp;emsp;信号发生器，或者说，函数信号发生器，在电子爱好者的测试测量工作中算是熟面孔了，但是，不像万用表或者电桥，信号发生器，似乎没有什么低成本的DIY方案，对囊中羞涩者而言，专门购入一台，无疑是探索之路上的一大阻碍。 &amp;emsp;&amp;emsp;所以，就让我们试着解析其构造，从零开始创造一台属于自己的信号发生器吧！ 最简单的DAC&amp;em">
+<meta property="og:description" content="系列文章为科协授课而作，原名《鼎山造物指南》  &amp;emsp;&amp;emsp;信号发生器，或者说，函数信号发生器，在电子爱好者的测试测量工作中算是熟面孔了，但是，不像万用表或者电桥，信号发生器，似乎没有什么低成本的DIY方案，对囊中羞涩者而言，专门购入一台，无疑是探索之路上的一大阻碍。 &amp;emsp;&amp;emsp;所以，就让我们试着解析其构造，从零开始创造一台属于自己的信号发生器吧！ 总体架构&amp;emsp;">
 <meta property="og:locale">
 <meta property="og:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P1.jpg">
+<meta property="og:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P2.jpg">
+<meta property="og:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P3.jpg">
 <meta property="article:published_time" content="2021-08-14T06:31:23.000Z">
-<meta property="article:modified_time" content="2021-08-14T07:56:54.000Z">
+<meta property="article:modified_time" content="2021-08-14T11:40:32.200Z">
 <meta property="article:author" content="magua8086">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P1.jpg">
@@ -336,8 +338,21 @@
 </blockquote>
 <p>&emsp;&emsp;信号发生器，或者说，函数信号发生器，在电子爱好者的测试测量工作中算是熟面孔了，但是，不像万用表或者电桥，信号发生器，似乎没有什么低成本的DIY方案，对囊中羞涩者而言，专门购入一台，无疑是探索之路上的一大阻碍。</p>
 <p>&emsp;&emsp;所以，就让我们试着解析其构造，从零开始创造一台属于自己的信号发生器吧！</p>
-<h2 id="最简单的DAC"><a href="#最简单的DAC" class="headerlink" title="最简单的DAC"></a>最简单的DAC</h2><p>&emsp;&emsp;以自底向上的思路，我们首先</p>
+<h2 id="总体架构"><a href="#总体架构" class="headerlink" title="总体架构"></a>总体架构</h2><p>&emsp;&emsp;首先，让我们来想一想，这个信号发生器大概是什么样的。</p>
+<p>&emsp;&emsp;从外观上来说，可以像传统仪表那样，放个屏幕，再布置许多按键与旋钮——工作量不小呢，不想干。所以，打算直接做成无屏幕无按键的形式，控制上的话直接上位机发指令。</p>
+<p>&emsp;&emsp;硬件架构上的话，采用FPGA+DAC为核心，这样灵活性较高，然后外接一块MCU负责接受和解析指令，DAC输出的信号则进入后续电路进行滤波、放大、设置偏移等处理后输出。</p>
+<h2 id="最简单的DAC"><a href="#最简单的DAC" class="headerlink" title="最简单的DAC"></a>最简单的DAC</h2><p>&emsp;&emsp;首先从DAC开始吧。</p>
+<p>&emsp;&emsp;最简单的DAC一般认为是”R-2R型DAC“，怎么叫这名？别急，先来回忆点基础知识吧。</p>
+<p>&emsp;&emsp;戴维南定理也叫等效电压源定理，该定理指出——任意单端口、线性的网络，都可以抽象为一个电压源串联一个电阻的结构。</p>
 <img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P1.jpg" align="center" style="zoom:50%">
+
+<p>&emsp;&emsp;其中，电压源电压 $U$ 等于原单口网络的开路电压，电阻 $R$ 等于内部所有独立源置零（电压源短路，电流源开路）后该网络两端点之间的阻值，称作该单口网络的内阻或输出阻抗。说到电源又提到内阻，大家应该很容易想到初/高中时对电源输出功率的分析，外挂一个与电源内阻相等的电阻时电源输出功率最大——信号领域常说的阻抗匹配，大致就是这种最大功率匹配扩展到实数域的结果。</p>
+<p>&emsp;&emsp;回顾了一番以后，来做点小练习。</p>
+<p>&emsp;&emsp;首先，看看这个电路.</p>
+<img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P2.jpg" align="left" style="zoom:50%">
+
+<p>&emsp;&emsp;然后画出它的戴维南等效电路。</p>
+<img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P3.jpg" align="left" style="zoom:50%">
 
       
     </div>
@@ -484,7 +499,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84DAC"><span class="nav-number">1.</span> <span class="nav-text">最简单的DAC</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">总体架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84DAC"><span class="nav-number">2.</span> <span class="nav-text">最简单的DAC</span></a></li></ol></div>
             
 
           </div>
