@@ -391,7 +391,7 @@
 <script type="math/tex; mode=display">
 Vout = DAC输出最小值+分辨率*输入的二进制数</script><p>&emsp;&emsp;这里DAC输出的最小值为零（对应000），分辨率为$1/8*3.3V = 0.4125V$​，根据这些已知条件，就可以依据给定的二进制数来完全确定Vout的电压了。</p>
 <p>&emsp;&emsp;当然，实际上，我们输出的电压仍然不是连续的，但只要分辨率足够小，小到在应用场合中带来的误差可以接受，那也就没什么好纠结的了。</p>
-<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>&emsp;&emsp;这篇里介绍了一下R-2R型DAC的原理，虽然实际设计信号发生器我们估计不会使用这样的电阻串而是使用现成的高速并行DAC芯片，不过，适当了解这种简单DAC的原理，应该也有助于读者更好的认识DAC的功能（当然，DAC的实现方式还有很多，不限于R-2R型），以便进行信号发生器的设计。</p>
+<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>&emsp;&emsp;这篇里介绍了一下R-2R型DAC的原理，虽然实际设计信号发生器时我们估计不会使用这样的电阻串而是使用现成的高速并行DAC芯片，不过，适当了解这种简单DAC的原理，应该也有助于读者更好的认识DAC的功能（当然，DAC的实现方式还有很多，不限于R-2R型），以便进行信号发生器的设计。</p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.tek.com/blog/tutorial-digital-analog-conversion-r-2r-dac">https://www.tek.com/blog/tutorial-digital-analog-conversion-r-2r-dac</a></li>
 <li><a target="_blank" rel="noopener" href="https://training.ti.com/zh-tw/precision-dacs-r-2r">https://training.ti.com/zh-tw/precision-dacs-r-2r</a></li>
