@@ -454,76 +454,18 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>系列文章为科协授课而作，原名《鼎山造物指南》</p>
 </blockquote>
 <p>&emsp;&emsp;信号发生器，或者说，函数信号发生器，在电子爱好者的测试测量工作中算是熟面孔了，但是，不像万用表或者电桥，信号发生器，似乎没有什么低成本的DIY方案，对囊中羞涩者而言，专门购入一台，无疑是探索之路上的一大阻碍。</p>
 <p>&emsp;&emsp;所以，就让我们试着解析其构造，从零开始创造一台属于自己的信号发生器吧！</p>
-<h2 id="总体架构"><a href="#总体架构" class="headerlink" title="总体架构"></a>总体架构</h2><p>&emsp;&emsp;首先，让我们来想一想，这个信号发生器大概是什么样的。</p>
-<p>&emsp;&emsp;从外观上来说，可以像传统仪表那样，放个屏幕，再布置许多按键与旋钮——工作量不小呢，不想干。所以，打算直接做成无屏幕无按键的形式，控制上的话直接上位机发指令。</p>
-<p>&emsp;&emsp;硬件架构上的话，采用FPGA+DAC为核心，这样灵活性较高，然后外接一块MCU负责接受和解析指令，DAC输出的信号则进入后续电路进行滤波、放大、设置偏移等处理后输出。</p>
-<h2 id="最简单的DAC"><a href="#最简单的DAC" class="headerlink" title="最简单的DAC"></a>最简单的DAC</h2><p>&emsp;&emsp;首先从DAC开始吧。</p>
-<p>&emsp;&emsp;最简单的DAC一般认为是”R-2R型DAC“，怎么叫这名？别急，先来回忆点基础知识吧。</p>
-<p>&emsp;&emsp;戴维南定理也叫等效电压源定理，该定理指出——任意单端口、线性的网络，都可以抽象为一个电压源串联一个电阻的结构。</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P1.jpg" align="center" style="zoom:42%"></p>
-<p>&emsp;&emsp;其中，电压源电压 $U$ 等于原单口网络的开路电压，电阻 $R$​​ 等于内部所有独立源置零（电压源短路，电流源开路）后该网络两端点之间的阻值，称作该单口网络的内阻或输出阻抗。说到电源又提到内阻，大家应该很容易想到初/高中时对电源输出功率的分析，外挂一个与电源内阻相等的电阻时电源输出功率最大——信号领域常说的阻抗匹配，大致就是这种最大功率匹配扩展到实数域的结果。</p>
-<p>&emsp;&emsp;回顾了一番以后，来做点小练习。</p>
-<p>&emsp;&emsp;首先，看看这个电路.</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P2.jpg" align="center" style="zoom:50%"></p>
-<p>&emsp;&emsp;然后画出它的戴维南等效电路。</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P3.jpg" align="center" style="zoom:50%"></p>
-<p>&emsp;&emsp;再来看看这个电路：</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P4.jpg" align="center" style="zoom:50%"></p>
-<p>&emsp;&emsp;然后画出它的戴维南等效电路（算不出来的同学可以复习一下叠加定理）：</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P5.jpg" align="center" style="zoom:50%"></p>
-<p>&emsp;&emsp;后一个电路相比前一个电路中多出的部分在下图中框出：</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P6.jpg" align="center" style="zoom:50%"></p>
-<p>&emsp;&emsp;将方框中电路再添加一次（电压源电压设为$U3$​），很容易得知，新的戴维南等效电路中，内阻为$R$，电压源电压为</p>
-<script type="math/tex; mode=display">
-\frac{1}{2}U3+\frac{1}{4}U2+\frac{1}{8}U1</script><p>&emsp;&emsp;规律已经很明显了，不过，这图是越来越难画了，稍微简化一下吧，把电压源负端接到地，然后画成正经的电路图</p>
-<p><img src="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P7.jpg" align="center" style="zoom:42%"></p>
-<p>&emsp;&emsp;显然，这里的网络标签B0、B1、B2对应原先的U1、U2、U3，Vout则对应网络的正端，其电压与B0、1、2的关系也已经得知了。</p>
-<p>&emsp;&emsp;人们常说DAC是从数字域到模拟域的桥梁，因为它负责完成数字信号到模拟信号的转换。那么，具体到R-2R型DAC，这一过程如何实现呢？</p>
-<p>&emsp;&emsp;数字域中存在的是固定的电平，比如3.3、5、0等等，以3.3V的TTL电平为例，我们将这样的电平信号加到B0、B1、B2上，会发生什么？</p>
-<p>&emsp;&emsp;比如这样：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">端点</th>
-<th style="text-align:center">B2</th>
-<th style="text-align:center">B1</th>
-<th style="text-align:center">B0</th>
-<th style="text-align:center">Vout</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">电压</td>
-<td style="text-align:center">3.3V</td>
-<td style="text-align:center">0V</td>
-<td style="text-align:center">0V</td>
-<td style="text-align:center">1.65V</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>&emsp;&emsp;在每个端点只有两种电平状态的情况下，完全可以用一个二进制数来描述这个网络的状态，比如B2 3.3V、B1 0V、B0 0V可以表示为100，而Vout电压则可以表示为</p>
-<script type="math/tex; mode=display">
-1*\frac{1}{2}*3.3V+0*\frac{1}{4}*3.3V+0*\frac{1}{8}*3.3V=1.65V</script><p>&emsp;&emsp;更进一步来看，我们可以发现，Vout的电压数字并不是连续的，如果将它的所有可能值列出来排好序，每个数字之间的间隔是固定的，这个间隔对应的值，就是离输出端最远的端点的电压变化，或者说二进制数的最低位的数据变化后输出端电压变化的值，也就是这个DAC的<strong>分辨率</strong>。</p>
-<p>&emsp;&emsp;现在我们可以得到这样的计算式子：</p>
-<script type="math/tex; mode=display">
-Vout = DAC输出最小值+分辨率*输入的二进制数</script><p>&emsp;&emsp;这里DAC输出的最小值为零（对应000），分辨率为$1/8*3.3V = 0.4125V$​，根据这些已知条件，就可以依据给定的二进制数来完全确定Vout的电压了。</p>
-<p>&emsp;&emsp;当然，实际上，我们输出的电压仍然不是连续的，但只要分辨率足够小，小到在应用场合中带来的误差可以接受，那也就没什么好纠结的了。</p>
-<h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>&emsp;&emsp;这篇里介绍了一下R-2R型DAC的原理，虽然实际设计信号发生器时我们估计不会使用这样的电阻串而是使用现成的高速并行DAC芯片，不过，适当了解这种简单DAC的原理，应该也有助于读者更好的认识DAC的功能（当然，DAC的实现方式还有很多，不限于R-2R型），以便进行信号发生器的设计。</p>
-<p>&emsp;&emsp;另外，如果想要实际搭建一个R-2R的DAC来做点测试的话，我放在<a target="_blank" rel="noopener" href="https://github.com/magua8086/PmodModules">这里</a>的模块或许可以提供一些帮助。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.tek.com/blog/tutorial-digital-analog-conversion-r-2r-dac">https://www.tek.com/blog/tutorial-digital-analog-conversion-r-2r-dac</a></li>
-<li><a target="_blank" rel="noopener" href="https://training.ti.com/zh-tw/precision-dacs-r-2r">https://training.ti.com/zh-tw/precision-dacs-r-2r</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
