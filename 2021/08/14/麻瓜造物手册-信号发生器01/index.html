@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P6.jpg">
 <meta property="og:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P7.jpg">
 <meta property="article:published_time" content="2021-08-14T06:31:23.000Z">
-<meta property="article:modified_time" content="2021-08-14T16:22:24.489Z">
+<meta property="article:modified_time" content="2021-08-17T19:15:21.429Z">
 <meta property="article:author" content="magua8086">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2021/08/14/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A801/P1.jpg">
@@ -399,6 +399,7 @@
 Vout = DAC输出最小值+分辨率*输入的二进制数</script><p>&emsp;&emsp;这里DAC输出的最小值为零（对应000），分辨率为$1/8*3.3V = 0.4125V$​，根据这些已知条件，就可以依据给定的二进制数来完全确定Vout的电压了。</p>
 <p>&emsp;&emsp;当然，实际上，我们输出的电压仍然不是连续的，但只要分辨率足够小，小到在应用场合中带来的误差可以接受，那也就没什么好纠结的了。</p>
 <h2 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h2><p>&emsp;&emsp;这篇里介绍了一下R-2R型DAC的原理，虽然实际设计信号发生器时我们估计不会使用这样的电阻串而是使用现成的高速并行DAC芯片，不过，适当了解这种简单DAC的原理，应该也有助于读者更好的认识DAC的功能（当然，DAC的实现方式还有很多，不限于R-2R型），以便进行信号发生器的设计。</p>
+<p>&emsp;&emsp;另外，如果想要实际搭建一个R-2R的DAC来做点测试的话，我放在<a target="_blank" rel="noopener" href="https://github.com/magua8086/PmodModules">这里</a>的模块或许可以提供一些帮助。</p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.tek.com/blog/tutorial-digital-analog-conversion-r-2r-dac">https://www.tek.com/blog/tutorial-digital-analog-conversion-r-2r-dac</a></li>
 <li><a target="_blank" rel="noopener" href="https://training.ti.com/zh-tw/precision-dacs-r-2r">https://training.ti.com/zh-tw/precision-dacs-r-2r</a></li>
