@@ -90,8 +90,12 @@
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P2.jpg">
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P3.jpg">
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P4.jpg">
+<meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P5.jpg">
+<meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P6.jpg">
+<meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P7.jpg">
+<meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P8.jpg">
 <meta property="article:published_time" content="2021-08-17T20:05:12.000Z">
-<meta property="article:modified_time" content="2021-08-17T20:44:56.656Z">
+<meta property="article:modified_time" content="2021-08-18T19:06:08.867Z">
 <meta property="article:author" content="magua8086">
 <meta property="article:tag" content="仪器DIY">
 <meta name="twitter:card" content="summary">
@@ -348,7 +352,25 @@
 <p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P4.jpg" align="center" style="zoom:80%"></p>
 <p>&emsp;&emsp;相应绘图代码如下：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%备注：在matlab R2017a下测试</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">max</span> = <span class="number">49</span>;    <span class="comment">%此参数决定最高谐波阶数，n对应2n-1阶的谐波。</span></span><br><span class="line">x = <span class="number">0</span>:<span class="number">0.01</span>:<span class="number">4</span>*<span class="built_in">pi</span>;  </span><br><span class="line">y = <span class="built_in">zeros</span>(<span class="built_in">size</span>(x));</span><br><span class="line"><span class="keyword">for</span> n = <span class="number">1</span>:<span class="number">2</span>:<span class="number">2</span>*<span class="built_in">max</span><span class="number">-1</span></span><br><span class="line">    y = y + <span class="number">1</span>/n.*<span class="built_in">sin</span>(n.*x);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">plot</span>(x,y);</span><br></pre></td></tr></table></figure>
-<p>&emsp;&emsp;未完待续······</p>
+<p>&emsp;&emsp;在不断叠加的过程中，我们的波形，从完美的正弦波开始，最终变得几乎像是方波了。</p>
+<p>&emsp;&emsp;这意味着什么呢？有一个重要的点——完美的正弦波的频率成分是单一的。在先前的叠加过程中，我们的波形拥有了越来越多的频率成分，而且样子越来越像方波了。那么，我们不妨设想一下——一个频率为f的方波包含哪些频率成分呢？换句话说，我们可以用哪些不同频率的正弦波去合成它呢？答案就是类似$sin(x)+\frac{1}{3}sin(3x)+\frac{1}{5}sin(5x)+…+\frac{1}{2n-1}sin((2n-1)x)+…$ 的一个序列，不过这个序列并没有尽头，理想的方波所包含的频率成分是无限多的。</p>
+<h3 id="1-为什么要滤波"><a href="#1-为什么要滤波" class="headerlink" title="1. 为什么要滤波"></a>1. 为什么要滤波</h3><p>&emsp;&emsp;明确了“方波包含无限多的频率成分”这一点后，回到信号发生器制作的实际中来，设想这样一个场景——采用一个8bit的DAC输出正弦波，波形会是怎样？</p>
+<p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P5.jpg" align="center" style="zoom:80%"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%备注：在matlab R2017a下测试</span></span><br><span class="line"></span><br><span class="line">x = <span class="built_in">linspace</span>(<span class="number">0</span>,<span class="number">2</span>*<span class="built_in">pi</span>,<span class="number">64</span>);</span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line">stairs(x,y);</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;这显然不是一个理想的正弦波，包含了许多不应存在的频率成分，而且，容易从图中看出，噪声的频率可比我们想要的正弦波高。</p>
+<p>&emsp;&emsp;这就是“不理想的DAC”带来的问题，因为我们的DAC的输出值并不连续，所以，在试图输出正弦波这样连续的波形时总会引入小的阶梯——换句话说就是高频噪声。</p>
+<p>&emsp;&emsp;要消除这些高频噪声，自然就得滤波了。</p>
+<h3 id="2-滤波的效果"><a href="#2-滤波的效果" class="headerlink" title="2. 滤波的效果"></a>2. 滤波的效果</h3><p>&emsp;&emsp;我只能说非常恐怖，兄弟，就跟整容一样。</p>
+<p>&emsp;&emsp;首先看看这个波形</p>
+<p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P6.jpg" align="center" style="zoom:80%"></p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%备注：在matlab R2017a下测试</span></span><br><span class="line"></span><br><span class="line">y = [ <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> ];</span><br><span class="line">x = <span class="number">0</span>:<span class="number">6</span>;</span><br><span class="line">stairs(x,y);</span><br><span class="line">ylim([<span class="number">-0.5</span> <span class="number">1.5</span>]);</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;假设这是个0.5Hz的方波。</p>
+<p>&emsp;&emsp;然后我们用Simulink搭一个下面的系统，把这个0.5Hz的方波送进一个截止频率1Hz的低通滤波器，用示波器看滤波器输出的波形。</p>
+<p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P7.jpg" align="center" style="zoom:100%"></p>
+<p>&emsp;&emsp;嗯，就会得到0.5Hz的正弦波（忽略系统稳定之前的状态），因为其他的频率成分都被滤掉了。</p>
+<p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P8.jpg" align="center" style="zoom:72%"></p>
+<p>&emsp;&emsp;类似地，如果在DAC的输出端放上一个合适的低通滤波器，就可以让充满“台阶”的“正弦波”变得更接近正弦波一些。</p>
+<h3 id="3-尝试设计一个滤波器"><a href="#3-尝试设计一个滤波器" class="headerlink" title="3. 尝试设计一个滤波器"></a>3. 尝试设计一个滤波器</h3><p>&emsp;&emsp;未完待续······</p>
 
       
     </div>
@@ -510,7 +532,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%A4%E6%B3%A2%E7%9A%84How%E4%B8%8EWhy"><span class="nav-number">1.</span> <span class="nav-text">滤波的How与Why</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E6%AD%A3%E5%BC%A6%E6%B3%A2"><span class="nav-number">1.1.</span> <span class="nav-text">0. 一切都是正弦波</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%A4%E6%B3%A2%E7%9A%84How%E4%B8%8EWhy"><span class="nav-number">1.</span> <span class="nav-text">滤波的How与Why</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0-%E4%B8%80%E5%88%87%E9%83%BD%E6%98%AF%E6%AD%A3%E5%BC%A6%E6%B3%A2"><span class="nav-number">1.1.</span> <span class="nav-text">0. 一切都是正弦波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%BB%A4%E6%B3%A2"><span class="nav-number">1.2.</span> <span class="nav-text">1. 为什么要滤波</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%BB%A4%E6%B3%A2%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">1.3.</span> <span class="nav-text">2. 滤波的效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%B0%9D%E8%AF%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%BB%A4%E6%B3%A2%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">3. 尝试设计一个滤波器</span></a></li></ol></li></ol></div>
             
 
           </div>
