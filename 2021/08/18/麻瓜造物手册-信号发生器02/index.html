@@ -79,12 +79,12 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;试图解释一下在DAC输出端进行滤波的作用和意义，并且用 FilterSolutions 以完全不动脑子的方式设计了个滤波器。">
+<meta name="description" content="&amp;emsp;&amp;emsp;试图解释一下在DAC输出端进行滤波的作用和意义，并且用 FilterSolutions 以完全不动脑子的方式设计了个滤波器。 滤波的How与Why0. 一切都是正弦波&amp;emsp;&amp;emsp;可能你听过这样的说法——“任何波形都可以分解为不同频率和相位的正弦波的组合”。真的吗？听着可有点玄乎。真假先不论，数学证明到底有些费劲，我们用更直观的方式大致看一下吧。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="麻瓜造物手册-信号发生器02">
 <meta property="og:url" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/index.html">
 <meta property="og:site_name" content="magua8086的小窝">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;试图解释一下在DAC输出端进行滤波的作用和意义，并且用 FilterSolutions 以完全不动脑子的方式设计了个滤波器。">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;试图解释一下在DAC输出端进行滤波的作用和意义，并且用 FilterSolutions 以完全不动脑子的方式设计了个滤波器。 滤波的How与Why0. 一切都是正弦波&amp;emsp;&amp;emsp;可能你听过这样的说法——“任何波形都可以分解为不同频率和相位的正弦波的组合”。真的吗？听着可有点玄乎。真假先不论，数学证明到底有些费劲，我们用更直观的方式大致看一下吧。">
 <meta property="og:locale">
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P1.jpg">
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P2.jpg">
@@ -94,8 +94,10 @@
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P6.jpg">
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P7.jpg">
 <meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P8.jpg">
+<meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P9.jpg">
+<meta property="og:image" content="http://example.com/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P10.jpg">
 <meta property="article:published_time" content="2021-08-17T20:05:12.000Z">
-<meta property="article:modified_time" content="2021-08-18T19:06:08.867Z">
+<meta property="article:modified_time" content="2021-08-23T19:19:55.014Z">
 <meta property="article:author" content="magua8086">
 <meta property="article:tag" content="仪器DIY">
 <meta name="twitter:card" content="summary">
@@ -339,8 +341,8 @@
       
 
       
-        <p>&emsp;&emsp;试图解释一下在DAC输出端进行滤波的作用和意义，并且用 FilterSolutions 以完全不动脑子的方式设计了个滤波器。<span id="more"></span></p>
-<h2 id="滤波的How与Why"><a href="#滤波的How与Why" class="headerlink" title="滤波的How与Why"></a>滤波的How与Why</h2><h3 id="0-一切都是正弦波"><a href="#0-一切都是正弦波" class="headerlink" title="0. 一切都是正弦波"></a>0. 一切都是正弦波</h3><p>&emsp;&emsp;可能你听过这样的说法——“任何波形都可以分解为不同频率和相位的正弦波的组合”。真的吗？听着可有点玄乎。真假先不论，数学证明到底有些费劲，我们用更直观的方式大致看一下吧。</p>
+        <p>&emsp;&emsp;试图解释一下在DAC输出端进行滤波的作用和意义，并且用 FilterSolutions 以完全不动脑子的方式设计了个滤波器。</p>
+<h2 id="滤波的How与Why"><a href="#滤波的How与Why" class="headerlink" title="滤波的How与Why"></a>滤波的How与Why</h2><h3 id="0-一切都是正弦波"><a href="#0-一切都是正弦波" class="headerlink" title="0. 一切都是正弦波"></a>0. 一切都是正弦波</h3><p>&emsp;&emsp;可能你听过这样的说法——“任何波形都可以分解为不同频率和相位的正弦波的组合”。真的吗？听着可有点玄乎。真假先不论，数学证明到底有些费劲，我们用更直观的方式大致看一下吧。<span id="more"></span></p>
 <p>&emsp;&emsp;首先，我们用matlab画个 $sin(x)$ 的图像出来</p>
 <p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P1.jpg" align="center" style="zoom:80%"></p>
 <p>&emsp;&emsp;嗯，然后呢？别急，再看几张。</p>
@@ -370,7 +372,17 @@
 <p>&emsp;&emsp;嗯，就会得到0.5Hz的正弦波（忽略系统稳定之前的状态），因为其他的频率成分都被滤掉了。</p>
 <p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P8.jpg" align="center" style="zoom:72%"></p>
 <p>&emsp;&emsp;类似地，如果在DAC的输出端放上一个合适的低通滤波器，就可以让充满“台阶”的“正弦波”变得更接近正弦波一些。</p>
-<h3 id="3-尝试设计一个滤波器"><a href="#3-尝试设计一个滤波器" class="headerlink" title="3. 尝试设计一个滤波器"></a>3. 尝试设计一个滤波器</h3><p>&emsp;&emsp;未完待续······</p>
+<h3 id="3-尝试设计一个滤波器"><a href="#3-尝试设计一个滤波器" class="headerlink" title="3. 尝试设计一个滤波器"></a>3. 尝试设计一个滤波器</h3><p>&emsp;&emsp;考虑到整体成本，DAC估计会用DAC904或者性能接近的芯片——分辨率14Bit、采样率165M。</p>
+<p>&emsp;&emsp;我们会在DAC的输出端接一个滤波器，尽量降低高频噪声的影响，同时基本不影响信号的正常输出——也就是需要一个低通滤波器，通带内的平坦度要尽量高，同时滚降（Roll-off）有一定的要求。</p>
+<p>&emsp;&emsp;参数上考虑这样一个问题——截止频率设置在多少？或者换句话说，希望输出的信号中保留的最高频的频率分量是多少？咳（这个我也不懂），由于“高阶谐波会因混叠而折回至奈奎斯特带宽内”之类的种种原因，一些文章建议这一值可以按奈奎斯特频率的2.5分之一到四分之一来考虑。</p>
+<p>&emsp;&emsp;这里我们就按30M考虑好了。</p>
+<p>&emsp;&emsp;有源滤波器上这个频率不容易，选择无源滤波器，类型上选择带内平坦度好的巴特沃兹滤波器，并且增加阶数来改善滚降。</p>
+<p>&emsp;&emsp;然后我们打开FilterSolutions，类型选低通、巴特沃兹，设置一下通带阻带频点。</p>
+<p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P9.jpg" align="center" style="zoom:72%"></p>
+<p>&emsp;&emsp;关注黄色的线，40MHz时它大概是-3db（意味着这一频率下的信号分量的电压值衰减至输入的<script type="math/tex">\frac{\sqrt{2}}{2}</script>），这是我们设置的通带频点，比希望输出的最高频率高一些，以减小对有用信号的衰减。</p>
+<p>&emsp;&emsp;然后，和所有的辅助设计软件一样，默认给出的元件参数都是一些稀奇古怪的数值，我们可以手动将这些数据调整到标准的电感、电容值（都是一堆类似的标准，可以直接参考E24/E48电阻表）。</p>
+<p><img src="/2021/08/18/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A802/P10.jpg" align="center" style="zoom:72%"></p>
+<p>&emsp;&emsp;这下电感电容值就顺眼多了。</p>
 
       
     </div>
