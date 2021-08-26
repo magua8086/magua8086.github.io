@@ -86,16 +86,16 @@
 <meta property="og:site_name" content="magua8086的小窝">
 <meta property="og:description" content="想着更一下但是太困了不想敲字，先把原来写的直接搬过来了，系列写完再优化吧  写在前面&amp;emsp;&amp;emsp;了解了最简单的DAC以后，我们有了产生波形的手段，但DAC直接输出的信号中可能包含一些不希望出现的频率成分，因此，需要设计合适的滤波器来消除这些成分，从滤波器的输出端可以得到较为理想的波形，然后呢？ &amp;emsp;&amp;emsp;本文所关注的是，从滤波器的输出获得一个较为理想的波形后，如何对该波">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share/OneDrive/博客记录/造物指南系列/信号发生器篇/03/Picture/P1.jpg">
-<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share/OneDrive/博客记录/造物指南系列/信号发生器篇/03/Picture/P2.jpg">
-<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share/OneDrive/博客记录/造物指南系列/信号发生器篇/03/Picture/P3.jpg">
-<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share/OneDrive/博客记录/造物指南系列/信号发生器篇/03/Picture/P5.jpg">
-<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share/OneDrive/博客记录/造物指南系列/信号发生器篇/03/Picture/P4.jpg">
+<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P1.jpg">
+<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P2.jpg">
+<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P3.jpg">
+<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P4.jpg">
+<meta property="og:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P5.jpg">
 <meta property="article:published_time" content="2021-08-26T15:30:07.000Z">
-<meta property="article:modified_time" content="2021-08-26T15:36:18.057Z">
+<meta property="article:modified_time" content="2021-08-26T15:41:58.675Z">
 <meta property="article:author" content="magua8086">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share/OneDrive/博客记录/造物指南系列/信号发生器篇/03/Picture/P1.jpg">
+<meta name="twitter:image" content="http://example.com/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P1.jpg">
 
 
 
@@ -344,18 +344,18 @@
 <p>&emsp;&emsp;所以，来考虑下，如果要做一个信号发生器的话，怎么设置偏移呢？</p>
 <p>&emsp;&emsp;首先，让我们来想一想，从滤波器得到的波形是怎样的？</p>
 <p>&emsp;&emsp;以正弦波为例，DAC输出幅度最大的时候，波形应该是这样的：</p>
-<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share\OneDrive\博客记录\造物指南系列\信号发生器篇\03\Picture\P1.jpg" alt></p>
+<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P1.jpg" align="center" style="zoom:80%"></p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%粗糙的绘图代码 环境：matlab R2017a</span></span><br><span class="line">x = <span class="number">0</span>:<span class="number">0.01</span>:<span class="number">2</span>*<span class="built_in">pi</span>;    </span><br><span class="line">y = <span class="built_in">sin</span>(x);</span><br><span class="line"><span class="built_in">plot</span>(x,(y+<span class="number">1</span>).*<span class="number">3.3</span>/<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">yticks([<span class="number">0</span> <span class="number">1.65</span> <span class="number">3.3</span>]);</span><br><span class="line">xticks([<span class="number">0</span> <span class="built_in">pi</span>/<span class="number">2</span> <span class="built_in">pi</span> <span class="number">3</span>*<span class="built_in">pi</span>/<span class="number">2</span> <span class="number">2</span>*<span class="built_in">pi</span>]);</span><br><span class="line">xticklabels(&#123;<span class="string">&#x27;0&#x27;</span>,<span class="string">&#x27;\pi/2&#x27;</span>,<span class="string">&#x27;\pi&#x27;</span>,<span class="string">&#x27;3\pi/2&#x27;</span>,<span class="string">&#x27;2\pi&#x27;</span>&#125;);   <span class="comment">%用于把一些标签和刻度关联起来</span></span><br></pre></td></tr></table></figure>
 <p>&emsp;&emsp;可以注意到，这个信号是一个幅值3.3V的正弦波叠了1.65V的直流分量，那么，如果我们希望把直流分量增加到3V，如何操作呢？</p>
 <p>&emsp;&emsp;显然可以用一个加法电路轻松完成。</p>
-<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share\OneDrive\博客记录\造物指南系列\信号发生器篇\03\Picture\P2.jpg" alt></p>
+<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P2.jpg" align="center" style="zoom:80%"></p>
 <p>&emsp;&emsp;（备注：使用KiCAD 5.18绘制，运放型号随手选取，不代表其适合信号发生器应用）</p>
 <p>&emsp;&emsp;额，虽然反相加法器一些性能较同相的好一些，<del>（而且方便计算）</del>，但是，如果不希望对原本的信号成分也做个水平翻转的话，不如把信号再反相一次，就像这样：</p>
-<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share\OneDrive\博客记录\造物指南系列\信号发生器篇\03\Picture\P3.jpg" alt></p>
+<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P3.jpg" align="center" style="zoom:80%"></p>
 <p>&emsp;&emsp;（备注：使用multisim14绘制，运放型号随手选取，不代表其适合信号发生器应用）</p>
 <p>&emsp;&emsp;图片中右侧示波器上的波形展示了信号发生器的输出和我们构建的电路输出，注意偏移的变化。另外，请注意 <strong>“Vp”</strong> 和 <strong>“Vpp”</strong> 的区别。</p>
 <p>&emsp;&emsp;最后，其实用一个差分，或者说减法器的形式好像会有一些隔离之类的好处（害，具体的我也说不上来），所以可以这样画一下：</p>
-<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share\OneDrive\博客记录\造物指南系列\信号发生器篇\03\Picture\P5.jpg" alt></p>
+<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P4.jpg" align="center" style="zoom:80%"></p>
 <p>&emsp;&emsp;AD8042倒是合适的芯片，要说为什么，就是便宜大碗（某宝拆机</p>
 <p>&emsp;&emsp;另外，有这么个问题——归根结底我们只是需要一个线性运算俩信号的环节而已，所以，反相不反相啥的，无所谓啦，一开始就反着出信号（相对整个信号链的）不就行了。</p>
 <h3 id="2-偏移电压何处来"><a href="#2-偏移电压何处来" class="headerlink" title="2. 偏移电压何处来"></a>2. 偏移电压何处来</h3><p>&emsp;&emsp;前面介绍过一种简单的 R-2R DAC的结构，如果用IO电压为3.3V的单片机去驱动它，输出范围<strong>差不多</strong>是在 0 ~ 3.3V 这样子，这意味着它是单极性的——与之对应的是“双极性”，如果我们的DAC输出范围是 -3.3V ~ 3.3V 的话，就可以该称之为“双极性”了。单极性的输出带来了一个问题——我们期望偏移电压既可以是正的，又可以是负的，因为这样使用起来更加灵活。那么，怎么把偏移电压变成可正可负的呢？</p>
@@ -363,7 +363,7 @@
 <p>&emsp;&emsp;嗯，确实可以，但没必要。</p>
 <p>&emsp;&emsp;最基础的想法应该是减法器，减去一个固定电压值——比如说DAC输出范围的中间，以此得到可正可负的输出。</p>
 <p>&emsp;&emsp;不过我们的电路可以这样简单设计一下：</p>
-<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/Share\OneDrive\博客记录\造物指南系列\信号发生器篇\03\Picture\P4.jpg" alt></p>
+<p><img src="/2021/08/26/%E9%BA%BB%E7%93%9C%E9%80%A0%E7%89%A9%E6%89%8B%E5%86%8C-%E4%BF%A1%E5%8F%B7%E5%8F%91%E7%94%9F%E5%99%A803/P5.jpg" align="center" style="zoom:80%"></p>
 <p>&emsp;&emsp;这一电路的具体输入输出关系请各位读者用运放的虚短和虚断推一下，总之，把来自一个用于产生偏移电压的DAC的单极性的输入变成双极性的输出，另外请估计一下，这个单极性的输入应该是0到多少伏比较合适？</p>
 <h2 id="尾声"><a href="#尾声" class="headerlink" title="尾声"></a>尾声</h2><p>&emsp;&emsp;笔者电脑上暂时只有multisim一个仿真软件，所以就用它演示了，各位读者可以在自己所习惯的仿真环境下测试一下电路。当然，有兴趣的童鞋，实物”仿真”也是可以的。</p>
 
